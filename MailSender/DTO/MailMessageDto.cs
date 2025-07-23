@@ -1,6 +1,6 @@
 ﻿namespace MailSender.Models
 {
-    public class MailMessage
+    public class MailMessageDto
     {
         public required string SenderEmail { get; set; }
         public required string ReceiverEmail { get; set; }

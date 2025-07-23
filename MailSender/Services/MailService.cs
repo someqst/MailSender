@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 using System.Net;
-using MailMessage = MailSender.Models.MailMessage;
+using MailMessageDto = MailSender.Models.MailMessageDto;
 using Microsoft.Extensions.Options;
 using MailSender.Configs;
 
@@ -9,7 +9,7 @@ namespace MailSender.Services
 {
     public interface IMailsService
     {
-        Task SendAsync(MailMessage mailMessage, CancellationToken cancellationToken = default);
+        Task SendAsync(MailMessageDto mailMessage, CancellationToken cancellationToken = default);
     }
 
     public class MailsService(IOptions<SmtpSettings> options) : IMailsService
@@ -17,7 +17,7 @@ namespace MailSender.Services
         private readonly SmtpSettings _settings = options.Value;
 
 
-        public async Task SendAsync(MailMessage mailMessage, CancellationToken cancellationToken = default)
+        public async Task SendAsync(MailMessageDto mailMessage, CancellationToken cancellationToken = default)
         {
             using var client = Create();
             using var message = new System.Net.Mail.MailMessage(mailMessage.SenderEmail, mailMessage.ReceiverEmail, mailMessage.Title, mailMessage.Body);
